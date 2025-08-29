@@ -1,0 +1,115 @@
+name: Server Submission
+description: Submit a new MCP server to the community hub
+title: "Add Server: [SERVER_NAME]"
+labels: ["server-submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for contributing to the Network MCP Hub! Please fill out the information below or paste the JSON data from the submission form.
+
+  - type: input
+    id: server_name
+    attributes:
+      label: Server Name
+      description: The name of your MCP server
+      placeholder: e.g., SQLite Server
+    validations:
+      required: true
+
+  - type: input
+    id: author
+    attributes:
+      label: Author
+      description: Author or organization name
+      placeholder: e.g., MCP Team
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Brief description of what your server does
+      placeholder: Describe the server's functionality and key benefits
+    validations:
+      required: true
+
+  - type: input
+    id: repository
+    attributes:
+      label: Repository URL
+      description: Link to the server's source code repository
+      placeholder: https://github.com/user/repo
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: What category best describes your server?
+      options:
+        - database
+        - filesystem
+        - web-api
+        - productivity
+        - development
+        - other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: language
+    attributes:
+      label: Programming Language
+      description: What language is your server written in?
+      options:
+        - python
+        - typescript
+        - javascript
+        - go
+        - rust
+        - other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: complexity
+    attributes:
+      label: Complexity Level
+      description: How complex is it to set up and use your server?
+      options:
+        - beginner
+        - intermediate
+        - advanced
+    validations:
+      required: true
+
+  - type: textarea
+    id: json_data
+    attributes:
+      label: Server JSON Data
+      description: If you used the submission form, paste the complete JSON data here
+      placeholder: |
+        {
+          "id": "server-id",
+          "name": "Server Name",
+          ...
+        }
+      render: json
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Submission Checklist
+      description: Please confirm the following
+      options:
+        - label: The server follows the MCP specification
+          required: true
+        - label: The repository is publicly accessible
+          required: true
+        - label: I have tested the server and it works as described
+          required: true
+        - label: I am the author or have permission to submit this server
+          required: true
