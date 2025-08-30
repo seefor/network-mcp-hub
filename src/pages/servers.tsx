@@ -6,6 +6,7 @@ import { filterServers, sortServers } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ArrowUpDown } from "lucide-react"
+import { servers as serverData } from "@/data/servers"
 
 export function ServersPage() {
   const [servers, setServers] = useState<MCPServer[]>([])
@@ -20,28 +21,16 @@ export function ServersPage() {
 
   // Load servers data
   useEffect(() => {
-    const loadServers = async () => {
-      try {
-        // With base path restored, use the full GitHub Pages path
-        console.log('Attempting to load servers...');
-        const response = await fetch('/network-mcp-hub/data/servers.json');
-        
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`)
-        }
-        
-        const data = await response.json()
-        console.log('✅ Successfully loaded servers:', data.length);
-        setServers(data)
-      } catch (err) {
-        console.error('❌ Fetch error:', err);
-        setError(err instanceof Error ? err.message : "An error occurred")
-      } finally {
-        setLoading(false)
-      }
+    try {
+      console.log('Loading servers from local data...');
+      setServers(serverData)
+      console.log('✅ Successfully loaded servers:', serverData.length);
+    } catch (err) {
+      console.error('❌ Error loading servers:', err);
+      setError(err instanceof Error ? err.message : "An error occurred")
+    } finally {
+      setLoading(false)
     }
-
-    loadServers()
   }, [])
 
   // Filter and sort servers
