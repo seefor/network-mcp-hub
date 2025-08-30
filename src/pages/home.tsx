@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom"
-import { ArrowRight, Database, FileText, Globe, Zap, Users, Code, Star, Plus } from "lucide-react"
+import { ArrowRight, Database, FileText, Globe, Zap, Users, Code, Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { servers as serverData } from "@/data/servers"
 
 const features = [
   {
@@ -27,19 +28,18 @@ const features = [
   },
 ]
 
+const categories = [...new Set(serverData.map(s => s.category))];
+const languages = [...new Set(serverData.map(s => s.language))];
+
 const stats = [
-  { label: "MCP Servers", value: "50+" },
-  { label: "Categories", value: "6" },
-  { label: "Languages", value: "5" },
+  { label: "MCP Servers", value: serverData.length.toString() },
+  { label: "Categories", value: categories.length.toString() },
+  { label: "Languages", value: languages.length.toString() },
   { label: "Contributors", value: "100+" },
 ]
 
-const popularServers = [
-  { name: "Filesystem Server", category: "filesystem", stars: 245 },
-  { name: "GitHub Server", category: "web-api", stars: 312 },
-  { name: "SQLite Server", category: "database", stars: 189 },
-  { name: "AWS S3 Server", category: "filesystem", stars: 203 },
-]
+// Get latest server by lastUpdated date
+const latestServer = serverData.sort((a, b) => new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime())[0];
 
 export function HomePage() {
   return (
@@ -123,34 +123,45 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* Popular Servers Section */}
+      {/* Latest Server Section */}
       <section className="py-20 bg-muted/50">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Popular MCP Servers
+              Latest MCP Server
             </h2>
             <p className="mt-6 text-lg leading-8 text-muted-foreground">
-              Start with these community favorites to see what's possible with MCP.
+              Check out the most recently added server to the community.
             </p>
           </div>
-          <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:grid-cols-2 lg:max-w-none lg:grid-cols-4">
-            {popularServers.map((server) => (
-              <Card key={server.name} className="hover:shadow-lg transition-shadow">
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-base">{server.name}</CardTitle>
-                  <div className="flex items-center justify-between">
-                    <Badge variant="outline" className="text-xs">
-                      {server.category}
+          <div className="mx-auto mt-16 max-w-2xl">
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-xl">{latestServer.name}</CardTitle>
+                  <Badge variant="outline">{latestServer.category}</Badge>
+                </div>
+                <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                  <span>by {latestServer.author}</span>
+                  <span>•</span>
+                  <span>{latestServer.language}</span>
+                  <span>•</span>
+                  <span>{latestServer.lastUpdated}</span>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-base mb-4">
+                  {latestServer.description.split('\n')[0]}
+                </CardDescription>
+                <div className="flex flex-wrap gap-2">
+                  {latestServer.tags.slice(0, 4).map((tag) => (
+                    <Badge key={tag} variant="secondary" className="text-xs">
+                      {tag}
                     </Badge>
-                    <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                      <Star className="h-3 w-3 fill-current text-yellow-500" />
-                      <span>{server.stars}</span>
-                    </div>
-                  </div>
-                </CardHeader>
-              </Card>
-            ))}
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </div>
           <div className="mt-12 text-center">
             <Button asChild variant="outline" size="lg">
