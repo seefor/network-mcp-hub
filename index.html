@@ -29,27 +29,6 @@
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://seefor.github.io/network-mcp-hub/" />
-    
-    <!-- Start Single Page Apps for GitHub Pages -->
-    <script type="text/javascript">
-      // Single Page Apps for GitHub Pages redirect handler
-      (function(l) {
-        if (l.search[1] === '/' ) {
-          try {
-            var decoded = l.search.slice(1).split('&').map(function(s) { 
-              return s.replace(/~and~/g, '&')
-            }).join('?');
-            console.log('Redirecting from query to path:', decoded);
-            window.history.replaceState(null, null,
-                l.pathname.slice(0, -1) + decoded + l.hash
-            );
-          } catch (e) {
-            console.error('Error processing redirect:', e);
-          }
-        }
-      }(window.location))
-    </script>
-    <!-- End Single Page Apps for GitHub Pages -->
   </head>
   <body>
     <div id="root"></div>

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { HashRouter as Router, Routes, Route } from "react-router-dom"
 import { Toaster } from "react-hot-toast"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Navigation } from "@/components/navigation"
@@ -49,7 +49,7 @@ function NotFoundPage() {
 function App() {
   return (
     <ThemeProvider defaultTheme="system" storageKey="mcp-hub-theme">
-      <Router basename="/network-mcp-hub">
+      <Router>
         <div className="min-h-screen bg-background font-sans antialiased">
           <Navigation />
           <main>
@@ -60,6 +60,7 @@ function App() {
               <Route path="/submit" element={<SubmitPage />} />
               <Route path="/docs" element={<DocsPage />} />
               <Route path="/community" element={<CommunityPage />} />
+              {/* Catch-all route for GitHub Pages */}
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </main>
