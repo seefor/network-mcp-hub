@@ -26,6 +26,11 @@ const categories = [
   { value: "web-api", label: "Web API" },
   { value: "productivity", label: "Productivity" },
   { value: "development", label: "Development" },
+  { value: "network", label: "Network" },
+  { value: "firewall", label: "Firewall" },
+  { value: "router", label: "Router" },
+  { value: "nccm", label: "NCCM" },
+  { value: "switches", label: "Switches" },
   { value: "other", label: "Other" },
 ]
 

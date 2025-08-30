@@ -35,6 +35,11 @@ export function SubmitPage() {
     'web-api',
     'productivity',
     'development',
+    'network',
+    'firewall',
+    'router',
+    'nccm',
+    'switches',
     'other'
   ]
 
