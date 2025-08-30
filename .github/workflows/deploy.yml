@@ -29,21 +29,15 @@ jobs:
     - name: Build
       run: npm run build
 
-    - name: Ensure data directory exists
+    - name: Verify build
       run: |
-        echo "Contents of dist:"
+        echo "Build contents:"
         ls -la dist/
-        if [ ! -d "dist/data" ]; then
-          echo "Creating data directory"
-          mkdir -p dist/data
+        if [ -f "dist/data/servers.json" ]; then
+          echo "✅ servers.json found ($(wc -c < dist/data/servers.json) bytes)"
+        else
+          echo "❌ servers.json missing"
         fi
-        if [ ! -f "dist/data/servers.json" ]; then
-          echo "Copying servers.json"
-          cp public/data/servers.json dist/data/
-        fi
-        echo "Final verification:"
-        ls -la dist/data/
-        echo "servers.json size: $(wc -c < dist/data/servers.json) bytes"
 
     - name: Setup Pages
       uses: actions/configure-pages@v4
