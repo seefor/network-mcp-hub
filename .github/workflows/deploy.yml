@@ -3,8 +3,6 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   build-and-deploy:
@@ -31,30 +29,21 @@ jobs:
     - name: Build
       run: npm run build
 
-    - name: Verify build output and copy data
+    - name: Ensure data directory exists
       run: |
-        echo "=== Contents of dist directory ==="
+        echo "Contents of dist:"
         ls -la dist/
-        echo ""
-        echo "=== Looking for data directory ==="
-        if [ -d "dist/data" ]; then
-          echo "✅ data directory exists"
-          ls -la dist/data/
-        else
-          echo "❌ data directory not found, creating and copying"
+        if [ ! -d "dist/data" ]; then
+          echo "Creating data directory"
           mkdir -p dist/data
-          cp -r public/data/* dist/data/ || echo "Failed to copy data"
-          echo "After copying:"
-          ls -la dist/data/
         fi
-        echo ""
-        echo "=== Final verification ==="
-        if [ -f "dist/data/servers.json" ]; then
-          echo "✅ servers.json found!"
-          echo "File size: $(wc -c < dist/data/servers.json) bytes"
-        else
-          echo "❌ servers.json still missing!"
+        if [ ! -f "dist/data/servers.json" ]; then
+          echo "Copying servers.json"
+          cp public/data/servers.json dist/data/
         fi
+        echo "Final verification:"
+        ls -la dist/data/
+        echo "servers.json size: $(wc -c < dist/data/servers.json) bytes"
 
     - name: Setup Pages
       uses: actions/configure-pages@v4
@@ -65,6 +54,4 @@ jobs:
         path: './dist'
 
     - name: Deploy to GitHub Pages
-      id: deployment
       uses: actions/deploy-pages@v4
-      if: github.ref == 'refs/heads/main'
