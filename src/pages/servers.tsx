@@ -22,7 +22,11 @@ export function ServersPage() {
   useEffect(() => {
     const loadServers = async () => {
       try {
-        const response = await fetch(`${import.meta.env.BASE_URL}data/servers.json`)
+        // Use relative path that works in both dev and production
+        const basePath = window.location.pathname.includes('/network-mcp-hub/') 
+          ? '/network-mcp-hub/' 
+          : '/';
+        const response = await fetch(`${basePath}data/servers.json`)
         if (!response.ok) {
           throw new Error("Failed to load servers data")
         }
