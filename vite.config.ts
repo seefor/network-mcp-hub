@@ -5,7 +5,7 @@ import path from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/network-mcp-hub/',
+  // Remove base for HashRouter - not needed
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

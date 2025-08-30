@@ -22,42 +22,19 @@ export function ServersPage() {
   useEffect(() => {
     const loadServers = async () => {
       try {
-        // Try multiple paths to find the right one
-        const paths = [
-          '/network-mcp-hub/data/servers.json',
-          './data/servers.json',
-          '../data/servers.json',
-          'data/servers.json'
-        ];
+        // With HashRouter and no base path, try the simple path
+        console.log('🔍 Attempting to load servers...');
+        const response = await fetch('/data/servers.json');
         
-        let response;
-        let lastError;
-        
-        for (const path of paths) {
-          try {
-            console.log(`🔍 Trying path: ${path}`);
-            response = await fetch(path);
-            if (response.ok) {
-              console.log(`✅ Success with path: ${path}`);
-              break;
-            } else {
-              console.log(`❌ Failed ${path}: ${response.status}`);
-            }
-          } catch (err) {
-            console.log(`❌ Error ${path}:`, err);
-            lastError = err;
-          }
-        }
-        
-        if (!response || !response.ok) {
-          throw lastError || new Error('All fetch attempts failed');
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`)
         }
         
         const data = await response.json()
-        console.log('✅ Loaded servers:', data.length);
+        console.log('✅ Successfully loaded servers:', data.length);
         setServers(data)
       } catch (err) {
-        console.error('❌ Final fetch error:', err);
+        console.error('❌ Fetch error:', err);
         setError(err instanceof Error ? err.message : "An error occurred")
       } finally {
         setLoading(false)

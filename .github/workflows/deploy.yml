@@ -31,6 +31,15 @@ jobs:
     - name: Build
       run: npm run build
 
+    - name: Verify build output
+      run: |
+        echo "Contents of dist directory:"
+        ls -la dist/
+        echo "Looking for data directory:"
+        ls -la dist/data/ || echo "data directory not found"
+        echo "Looking for servers.json:"
+        ls -la dist/data/servers.json || echo "servers.json not found"
+
     - name: Setup Pages
       uses: actions/configure-pages@v4
 
