@@ -31,14 +31,30 @@ jobs:
     - name: Build
       run: npm run build
 
-    - name: Verify build output
+    - name: Verify build output and copy data
       run: |
-        echo "Contents of dist directory:"
+        echo "=== Contents of dist directory ==="
         ls -la dist/
-        echo "Looking for data directory:"
-        ls -la dist/data/ || echo "data directory not found"
-        echo "Looking for servers.json:"
-        ls -la dist/data/servers.json || echo "servers.json not found"
+        echo ""
+        echo "=== Looking for data directory ==="
+        if [ -d "dist/data" ]; then
+          echo "✅ data directory exists"
+          ls -la dist/data/
+        else
+          echo "❌ data directory not found, creating and copying"
+          mkdir -p dist/data
+          cp -r public/data/* dist/data/ || echo "Failed to copy data"
+          echo "After copying:"
+          ls -la dist/data/
+        fi
+        echo ""
+        echo "=== Final verification ==="
+        if [ -f "dist/data/servers.json" ]; then
+          echo "✅ servers.json found!"
+          echo "File size: $(wc -c < dist/data/servers.json) bytes"
+        else
+          echo "❌ servers.json still missing!"
+        fi
 
     - name: Setup Pages
       uses: actions/configure-pages@v4
