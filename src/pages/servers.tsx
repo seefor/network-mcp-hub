@@ -81,9 +81,19 @@ export function ServersPage() {
     return (
       <div className="container mx-auto px-6 py-8">
         <div className="flex items-center justify-center min-h-[400px]">
-          <div className="text-center">
+          <div className="text-center max-w-md">
             <p className="text-destructive mb-4">Error loading servers: {error}</p>
-            <Button onClick={() => window.location.reload()}>Try Again</Button>
+            <div className="space-y-3">
+              <Button onClick={() => window.location.reload()}>Try Again</Button>
+              <div className="text-sm text-muted-foreground">
+                <p>If this problem persists, the site may still be deploying.</p>
+                <p className="mt-2">
+                  <a href="https://github.com/seefor/network-mcp-hub" className="text-primary hover:underline">
+                    View on GitHub
+                  </a>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
