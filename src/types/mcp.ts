@@ -6,7 +6,7 @@ export interface MCPServer {
   repository: string;
   documentation?: string;
   tags: string[];
-  category: 'database' | 'filesystem' | 'web-api' | 'productivity' | 'development' | 'other';
+  category: 'database' | 'filesystem' | 'web-api' | 'productivity' | 'development' | 'network' | 'firewall' | 'router' | 'nccm' | 'switches' | 'other';
   language: 'python' | 'typescript' | 'javascript' | 'go' | 'rust' | 'other';
   complexity: 'beginner' | 'intermediate' | 'advanced';
   installCommand?: string;

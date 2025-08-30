@@ -14,7 +14,7 @@ export const servers: MCPServer[] = [
     "mcp",
     "network"
   ],
-  "category": "other" as const,
+  "category": "network" as const,
   "language": "python" as const,
   "complexity": "intermediate" as const,
   "installCommand": "",
