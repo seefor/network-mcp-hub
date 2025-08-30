@@ -22,28 +22,17 @@ export function ServersPage() {
   useEffect(() => {
     const loadServers = async () => {
       try {
-        console.log('🔍 Attempting to load servers from:', window.location.origin);
-        
-        // Try GitHub Pages path first, then fallback to dev path
-        let response = await fetch('/network-mcp-hub/data/servers.json');
-        console.log('📡 First attempt response:', response.status, response.statusText);
-        
-        if (!response.ok && response.status === 404) {
-          console.log('⚠️ First attempt failed, trying fallback path');
-          // Fallback for development
-          response = await fetch('/data/servers.json');
-          console.log('📡 Fallback response:', response.status, response.statusText);
-        }
+        // With the 404.html redirect fix, routing should work properly
+        // Try the standard GitHub Pages path
+        const response = await fetch('/network-mcp-hub/data/servers.json');
         
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`)
         }
         
         const data = await response.json()
-        console.log('✅ Successfully loaded servers:', data.length);
         setServers(data)
       } catch (err) {
-        console.error('❌ Error loading servers:', err);
         setError(err instanceof Error ? err.message : "An error occurred")
       } finally {
         setLoading(false)
