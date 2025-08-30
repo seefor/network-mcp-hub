@@ -22,7 +22,7 @@ export function ServersPage() {
   useEffect(() => {
     const loadServers = async () => {
       try {
-        const response = await fetch("/network-mcp-hub/data/servers.json")
+        const response = await fetch(`${import.meta.env.BASE_URL}data/servers.json`)
         if (!response.ok) {
           throw new Error("Failed to load servers data")
         }
