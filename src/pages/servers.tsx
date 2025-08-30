@@ -22,9 +22,9 @@ export function ServersPage() {
   useEffect(() => {
     const loadServers = async () => {
       try {
-        // With HashRouter and no base path, try the simple path
-        console.log('🔍 Attempting to load servers...');
-        const response = await fetch('/data/servers.json');
+        // With base path restored, use the full GitHub Pages path
+        console.log('Attempting to load servers...');
+        const response = await fetch('/network-mcp-hub/data/servers.json');
         
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`)
