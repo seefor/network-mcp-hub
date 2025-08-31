@@ -4,12 +4,16 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { MCPServer } from "@/types/mcp"
 import { formatDate, getComplexityColor, getCategoryIcon } from "@/lib/utils"
+import { useStars } from "@/hooks/use-stars"
+import { cn } from "@/lib/utils"
 
 interface ServerCardProps {
   server: MCPServer
 }
 
 export function ServerCard({ server }: ServerCardProps) {
+  const { stars, hasStarred, toggleStar } = useStars(server.id, server.stars || 0)
+  
   return (
     <Card className="h-full flex flex-col hover:shadow-lg transition-shadow duration-200">
       <CardHeader className="pb-3">
@@ -30,12 +34,18 @@ export function ServerCard({ server }: ServerCardProps) {
               </div>
             </div>
           </div>
-          {server.stars && (
-            <div className="flex items-center gap-1 text-sm text-muted-foreground">
-              <Star className="h-4 w-4 fill-current text-yellow-500" />
-              <span>{server.stars}</span>
-            </div>
-          )}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={toggleStar}
+            className={cn(
+              "flex items-center gap-1 text-sm hover:text-yellow-600",
+              hasStarred ? "text-yellow-600" : "text-muted-foreground"
+            )}
+          >
+            <Star className={cn("h-4 w-4", hasStarred && "fill-current")} />
+            <span>{stars}</span>
+          </Button>
         </div>
         <CardDescription className="text-sm leading-relaxed">
           {server.description}
