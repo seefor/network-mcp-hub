@@ -25,5 +25,29 @@ export const servers: MCPServer[] = [
   ],
   "lastUpdated": "2025-08-30",
   "stars": 0
+},
+{
+  "id": "netbox-mcp-server",
+  "name": "NetBox MCP Server",
+  "description": "This is a simple read-only Model Context Protocol server for NetBox. It enables you to interact with your data in NetBox directly via LLMs that support MCP.",
+  "author": "arthanson",
+  "repository": "https://github.com/netboxlabs/netbox-mcp-server",
+  "documentation": "https://github.com/netboxlabs/netbox-mcp-server/blob/main/README.md",
+  "tags": [
+    "netbox",
+    "sot"
+  ],
+  "category": "other" as const,
+  "language": "python" as const,
+  "complexity": "beginner" as const,
+  "installCommand": "git clone https://github.com/netboxlabs/netbox-mcp-server.git",
+  "configExample": "{\n  \"mcpServers\": {\n    \"netbox\": {\n      \"command\": \"uv\",\n      \"args\": [\n        \"--directory\",\n        \"/path/to/netbox-mcp-server\",\n        \"run\",\n        \"server.py\"\n      ],\n      \"env\": {\n        \"NETBOX_URL\": \"https://netbox.example.com/\",\n        \"NETBOX_TOKEN\": \"<your-api-token>\"\n      }\n    }\n  }\n}",
+  "features": [
+    "get_objects\tRetrieves NetBox core objects based on their type and filters",
+    "get_object_by_id\tGets detailed information about a specific NetBox object by its ID",
+    "get_changelogs\tRetrieves change history records (audit trail) based on filters"
+  ],
+  "lastUpdated": "2025-09-01",
+  "stars": 0
 }
 ];
