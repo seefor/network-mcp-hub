@@ -37,7 +37,7 @@ export const servers: MCPServer[] = [
     "netbox",
     "sot"
   ],
-  "category": "other" as const,
+  "category": "network" as const,
   "language": "python" as const,
   "complexity": "beginner" as const,
   "installCommand": "git clone https://github.com/netboxlabs/netbox-mcp-server.git",
@@ -48,6 +48,65 @@ export const servers: MCPServer[] = [
     "get_changelogs\tRetrieves change history records (audit trail) based on filters"
   ],
   "lastUpdated": "2025-09-01",
+  "stars": 0
+},
+{
+  "id": "gnmibuddy",
+  "name": "gNMIBuddy",
+  "description": "An over-engineered and opinionated tool that retrieves essential network information from devices using gNMI and OpenConfig models. Designed primarily for LLMs with Model Context Protocol (MCP) integration, it also provides a full CLI for direct use.",
+  "author": "Jesus Illescas",
+  "repository": "https://github.com/jillesca/gNMIBuddy",
+  "documentation": "https://github.com/jillesca/gNMIBuddy",
+  "tags": [
+    "OpenConfig",
+    "gNMI",
+    "uv"
+  ],
+  "category": "network" as const,
+  "language": "python" as const,
+  "complexity": "advanced" as const,
+  "installCommand": "git clone https://github.com/jillesca/gNMIBuddy.git && cd gNMIBuddy && uv sync --frozen --no-dev",
+  "configExample": "[\n  {\n    \"name\": \"xrd-1\",\n    \"ip_address\": \"10.10.20.101\",\n    \"nos\": \"iosxr\",\n    \"username\": \"cisco\",\n    \"password\": \"C1sco12345\"\n  },\n  {\n    \"name\": \"xrd-2\",\n    \"ip_address\": \"10.10.20.102\",\n    \"nos\": \"iosxr\",\n    \"path_cert\": \"/opt/certs/device.pem\",\n    \"path_key\": \"/opt/certs/device.key\"\n  }\n]",
+  "features": [
+    "Routing: BGP, ISIS protocols and neighbor states",
+    "Interfaces: Status, configuration, and statistics",
+    "MPLS: Labels, forwarding tables, and segment routing",
+    "VPN/VRF: L3VPN configuration and route targets",
+    "Logs: Filtered device logs with keyword search",
+    "Topology: Device neighbors and network-wide topology analysis"
+  ],
+  "lastUpdated": "2025-09-03",
+  "stars": 0
+},
+{
+  "id": "infrahub-mcp",
+  "name": "Infrahub MCP",
+  "description": "Infrahub MCP Server connects your AI assistants to Infrahub using the open MCP standard—so agents can read and (optionally) change your infra state through a consistent, audited, human-approved interface.",
+  "author": "Opsmill",
+  "repository": "https://github.com/opsmill/infrahub-mcp",
+  "documentation": "",
+  "tags": [
+    "network",
+    "sot",
+    "mcp",
+    "infrastructure",
+    "ipam",
+    "dcim"
+  ],
+  "category": "network" as const,
+  "language": "python" as const,
+  "complexity": "beginner" as const,
+  "installCommand": "uv run fastmcp run src/infrahub_mcp/server.py:mcp",
+  "configExample": "",
+  "features": [
+    "List all schema nodes and generics available in Infrahub.",
+    "Retrieve the full schema for a specific kind (attributes, relationships, and types).",
+    "Get all objects of a specific kind from Infrahub.",
+    "Retrieve related nodes by relation name for a given kind.",
+    "Retrieve all branches from Infrahub.",
+    "Execute a GraphQL operation against Infrahub."
+  ],
+  "lastUpdated": "2025-09-03",
   "stars": 0
 }
 ];
