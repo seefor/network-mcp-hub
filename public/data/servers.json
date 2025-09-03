@@ -1,5 +1,4 @@
 [
-[
   {
     "id": "cisco-aci-mcp",
     "name": "CISCO ACI MCP",
@@ -13,7 +12,7 @@
       "mcp",
       "network"
     ],
-    "category": "other",
+    "category": "network",
     "language": "python",
     "complexity": "intermediate",
     "installCommand": "",
@@ -36,7 +35,7 @@
       "netbox",
       "sot"
     ],
-    "category": "other",
+    "category": "network",
     "language": "python",
     "complexity": "beginner",
     "installCommand": "git clone https://github.com/netboxlabs/netbox-mcp-server.git",
@@ -108,5 +107,4 @@
     "lastUpdated": "2025-09-03",
     "stars": 0
   }
-]
 ]
