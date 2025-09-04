@@ -1,3 +1,9 @@
+# UPDATE URL
+
+This site was built using [Cloudflare Pages](https://network-mcp-hub.pages.dev/#).
+
+
+
 # Network MCP Hub
 
 A modern, community-driven web application for discovering and sharing Model Context Protocol (MCP) servers, tools, and resources.
