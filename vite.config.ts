@@ -20,8 +20,9 @@ export default defineConfig({
       }
     }
   ],
-  // Keep base path for correct asset loading on GitHub Pages
-  base: '/network-mcp-hub/',
+  // Use different base paths based on deployment platform
+  // CF_PAGES is automatically set by Cloudflare Pages
+  base: process.env.CF_PAGES ? '/' : '/network-mcp-hub/',
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
