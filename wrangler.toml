@@ -1,0 +1,9 @@
+name = "network-mcp-hub"
+compatibility_date = "2024-09-04"
+
+[env.production]
+pages_build_output_dir = "dist"
+
+[[env.production.rules]]
+type = "Text"
+globs = ["**/*"]
