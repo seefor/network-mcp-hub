@@ -108,5 +108,25 @@ export const servers: MCPServer[] = [
   ],
   "lastUpdated": "2025-09-03",
   "stars": 0
+},
+{
+  "id": "unifi-network-mcp-server",
+  "name": "UniFi Network MCP Server",
+  "description": "A self-hosted Model Context Protocol (MCP) server that turns your UniFi Network Controller into a rich set of programmable tools. Every capability is exposed via standard MCP tools prefixed with unifi_, so any LLM or agent that speaks MCP (e.g. Claude Desktop, mcp-cli, LangChain, etc.) can query, analyse and – when explicitly confirmed – modify your network.",
+  "author": "sirkirby",
+  "repository": "https://github.com/sirkirby/unifi-network-mcp",
+  "documentation": "https://github.com/sirkirby/unifi-network-mcp/blob/main/README.md",
+  "tags": [
+    "network",
+    "unifi"
+  ],
+  "category": "network" as const,
+  "language": "python" as const,
+  "complexity": "intermediate" as const,
+  "installCommand": "uv pip install unifi-network-mcp",
+  "configExample": "\"unifi-network-mcp\": {\n  \"command\": \"/path/to/your/.local/bin/uvx\",\n  \"args\": [\"--quiet\", \"unifi-network-mcp\"],\n  \"env\": {\n    \"UNIFI_HOST\": \"192.168.1.1\",\n    \"UNIFI_USERNAME\": \"admin\",\n    \"UNIFI_PASSWORD\": \"secret\",\n    \"UNIFI_PORT\": \"443\",\n    \"UNIFI_SITE\": \"default\",\n    \"UNIFI_VERIFY_SSL\": \"false\"\n  }\n}",
+  "features": [],
+  "lastUpdated": "2025-09-05",
+  "stars": 0
 }
 ];
