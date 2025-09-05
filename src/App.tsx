@@ -6,6 +6,7 @@ import { HomePage } from "@/pages/home"
 import { ServersPage } from "@/pages/servers"
 import { GettingStartedPage } from "@/pages/getting-started"
 import { SubmitPage } from "@/pages/submit"
+import { CommunityPage } from "@/pages/Community"
 
 // Placeholder components for other pages
 function DocsPage() {
@@ -14,17 +15,6 @@ function DocsPage() {
       <h1 className="text-3xl font-bold mb-4">Documentation</h1>
       <p className="text-muted-foreground">
         Comprehensive documentation for MCP servers and integration guides.
-      </p>
-    </div>
-  )
-}
-
-function CommunityPage() {
-  return (
-    <div className="container mx-auto px-6 py-8">
-      <h1 className="text-3xl font-bold mb-4">Community</h1>
-      <p className="text-muted-foreground">
-        Connect with other developers building with MCP.
       </p>
     </div>
   )
