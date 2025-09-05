@@ -121,7 +121,7 @@
   "category": "network",
   "language": "python",
   "complexity": "intermediate",
-  "installCommand": "uv pip install unifi-network-mcp  # or: pip install unifi-network-mcp",
+  "installCommand": "uv pip install unifi-network-mcp",
   "configExample": "\"unifi-network-mcp\": {\n  \"command\": \"/path/to/your/.local/bin/uvx\",\n  \"args\": [\"--quiet\", \"unifi-network-mcp\"],\n  \"env\": {\n    \"UNIFI_HOST\": \"192.168.1.1\",\n    \"UNIFI_USERNAME\": \"admin\",\n    \"UNIFI_PASSWORD\": \"secret\",\n    \"UNIFI_PORT\": \"443\",\n    \"UNIFI_SITE\": \"default\",\n    \"UNIFI_VERIFY_SSL\": \"false\"\n  }\n}",
   "features": [],
   "lastUpdated": "2025-09-05",
