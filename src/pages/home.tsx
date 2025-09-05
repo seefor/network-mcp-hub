@@ -36,7 +36,7 @@ export function HomePage() {
   useEffect(() => {
     const loadServers = async () => {
       try {
-        const response = await fetch('/data/servers.json')
+        const response = await fetch('./data/servers.json')
         if (!response.ok) return
         const serverData: MCPServer[] = await response.json()
         setServers(serverData)

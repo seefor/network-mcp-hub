@@ -22,7 +22,7 @@ export function ServersPage() {
     const loadServers = async () => {
       try {
         console.log('Loading servers from JSON...');
-        const response = await fetch('/data/servers.json')
+        const response = await fetch('./data/servers.json')
         if (!response.ok) throw new Error('Failed to load servers')
         const serverData = await response.json()
         setServers(serverData)
