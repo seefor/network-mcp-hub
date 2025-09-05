@@ -6,8 +6,6 @@ import { filterServers, sortServers } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ArrowUpDown } from "lucide-react"
-import { servers as serverData } from "@/data/servers"
-
 export function ServersPage() {
   const [servers, setServers] = useState<MCPServer[]>([])
   const [loading, setLoading] = useState(true)
@@ -21,16 +19,22 @@ export function ServersPage() {
 
   // Load servers data
   useEffect(() => {
-    try {
-      console.log('Loading servers from local data...');
-      setServers(serverData)
-      console.log('✅ Successfully loaded servers:', serverData.length);
-    } catch (err) {
-      console.error('❌ Error loading servers:', err);
-      setError(err instanceof Error ? err.message : "An error occurred")
-    } finally {
-      setLoading(false)
+    const loadServers = async () => {
+      try {
+        console.log('Loading servers from JSON...');
+        const response = await fetch('/data/servers.json')
+        if (!response.ok) throw new Error('Failed to load servers')
+        const serverData = await response.json()
+        setServers(serverData)
+        console.log('✅ Successfully loaded servers:', serverData.length);
+      } catch (err) {
+        console.error('❌ Error loading servers:', err);
+        setError(err instanceof Error ? err.message : "An error occurred")
+      } finally {
+        setLoading(false)
+      }
     }
+    loadServers()
   }, [])
 
   // Filter and sort servers

@@ -3,7 +3,8 @@ import { ArrowRight, Database, FileText, Globe, Zap, Users, Code, Plus } from "l
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { servers as serverData } from "@/data/servers"
+import { useState, useEffect } from "react"
+import { MCPServer } from "@/types/mcp"
 
 const features = [
   {
@@ -28,20 +29,38 @@ const features = [
   },
 ]
 
-const categories = [...new Set(serverData.map(s => s.category))];
-const languages = [...new Set(serverData.map(s => s.language))];
-
-const stats = [
-  { label: "MCP Servers", value: serverData.length.toString() },
-  { label: "Categories", value: categories.length.toString() },
-  { label: "Languages", value: languages.length.toString() },
-  { label: "Contributors", value: "100+" },
-]
-
-// Get latest server by lastUpdated date
-const latestServer = serverData.sort((a, b) => new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime())[0];
-
 export function HomePage() {
+  const [servers, setServers] = useState<MCPServer[]>([])
+  const [latestServer, setLatestServer] = useState<MCPServer | null>(null)
+
+  useEffect(() => {
+    const loadServers = async () => {
+      try {
+        const response = await fetch('/data/servers.json')
+        if (!response.ok) return
+        const serverData: MCPServer[] = await response.json()
+        setServers(serverData)
+        const latest = serverData.sort((a: MCPServer, b: MCPServer) => 
+          new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime()
+        )[0]
+        setLatestServer(latest)
+      } catch (err) {
+        console.error('Failed to load servers:', err)
+      }
+    }
+    loadServers()
+  }, [])
+
+  const categories = [...new Set(servers.map(s => s.category))]
+  const languages = [...new Set(servers.map(s => s.language))]
+  
+  const stats = [
+    { label: "MCP Servers", value: servers.length.toString() },
+    { label: "Categories", value: categories.length.toString() },
+    { label: "Languages", value: languages.length.toString() },
+    { label: "Contributors", value: "100+" },
+  ]
+
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
@@ -124,55 +143,57 @@ export function HomePage() {
       </section>
 
       {/* Latest Server Section */}
-      <section className="py-20 bg-muted/50">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Latest MCP Server
-            </h2>
-            <p className="mt-6 text-lg leading-8 text-muted-foreground">
-              Check out the most recently added server to the community.
-            </p>
+      {latestServer && (
+        <section className="py-20 bg-muted/50">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mx-auto max-w-2xl text-center">
+              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+                Latest MCP Server
+              </h2>
+              <p className="mt-6 text-lg leading-8 text-muted-foreground">
+                Check out the most recently added server to the community.
+              </p>
+            </div>
+            <div className="mx-auto mt-16 max-w-2xl">
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-xl">{latestServer.name}</CardTitle>
+                    <Badge variant="outline">{latestServer.category}</Badge>
+                  </div>
+                  <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                    <span>by {latestServer.author}</span>
+                    <span>•</span>
+                    <span>{latestServer.language}</span>
+                    <span>•</span>
+                    <span>{latestServer.lastUpdated}</span>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-base mb-4">
+                    {latestServer.description.split('\n')[0]}
+                  </CardDescription>
+                  <div className="flex flex-wrap gap-2">
+                    {latestServer.tags.slice(0, 4).map((tag) => (
+                      <Badge key={tag} variant="secondary" className="text-xs">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+            <div className="mt-12 text-center">
+              <Button asChild variant="outline" size="lg">
+                <Link to="/servers" className="flex items-center gap-2">
+                  View All Servers
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
           </div>
-          <div className="mx-auto mt-16 max-w-2xl">
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-xl">{latestServer.name}</CardTitle>
-                  <Badge variant="outline">{latestServer.category}</Badge>
-                </div>
-                <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                  <span>by {latestServer.author}</span>
-                  <span>•</span>
-                  <span>{latestServer.language}</span>
-                  <span>•</span>
-                  <span>{latestServer.lastUpdated}</span>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-base mb-4">
-                  {latestServer.description.split('\n')[0]}
-                </CardDescription>
-                <div className="flex flex-wrap gap-2">
-                  {latestServer.tags.slice(0, 4).map((tag) => (
-                    <Badge key={tag} variant="secondary" className="text-xs">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-          <div className="mt-12 text-center">
-            <Button asChild variant="outline" size="lg">
-              <Link to="/servers" className="flex items-center gap-2">
-                View All Servers
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* CTA Section */}
       <section className="py-20">
